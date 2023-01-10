@@ -6,8 +6,9 @@ export function gooseFilter (birds:Array<string>): string[] {
 
     geese.forEach(element => {
         let indexGeese: number = filteredGeese.indexOf(element);
-        if (indexGeese > -1) {
+        while (indexGeese > -1) {
             filteredGeese.splice(indexGeese, 1);
+            indexGeese = filteredGeese.indexOf(element);
         }
     })
 

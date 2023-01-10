@@ -10,6 +10,15 @@ describe("filterOutGeese : Basic tests", () => {
             let sut = gooseFilter(givenBirds);
             expect(sut).toStrictEqual(expectedBirds);
         });
+
+        const givenBirds2: Array<string> = ['Roman Tufted', 'Crested'];
+        const expectedBirds2: Array<string> = ['Crested'];
+
+        it(`should return '${expectedBirds2}' when search in '${givenBirds2}`, () => {
+            let sut = gooseFilter(givenBirds2);
+            expect(sut).toStrictEqual(expectedBirds2);
+        });
+
     });
 
     describe("No geese", () => {
