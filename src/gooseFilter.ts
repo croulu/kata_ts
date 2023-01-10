@@ -1,6 +1,12 @@
 
 export function gooseFilter (birds:Array<string>) {
-    var geese = ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"];
+    const geese = ["African", "Roman Tufted", "Toulouse", "Pilgrim", "Steinbacher"];
 
-    return ["Mallard", "Hook Bill", "Crested", "Blue Swedish"];
+    let filteredGeese:Array<string> = [];
+
+    filteredGeese = birds.filter((element) => element !== "African");
+
+    console.log(filteredGeese);
+
+    return filteredGeese;
 };

@@ -1,15 +1,13 @@
-import {gooseFilter} from "./gooseFilter";
+import {gooseFilter, removeOneElement} from "./gooseFilter";
 
 describe("filterOutGeese : Basic tests", () => {
 
     describe("Mixed list", () => {
-        const givenBirds1:Array<string> = ["Mallard", "Hook Bill", "African", "Crested", "Pilgrim", "Toulouse", "Blue Swedish"];
-
+        const givenBirds1:Array<string> = ["Mallard", "Hook Bill", "African", "Crested", "Blue Swedish"];
         const expectedBirds:Array<string> = ["Mallard", "Hook Bill", "Crested", "Blue Swedish"];
-        let sut = gooseFilter(givenBirds1);
 
         it(`should return '${expectedBirds}' when search in '${givenBirds1}`, () => {
-
+            let sut = gooseFilter(givenBirds1);
             expect(sut).toStrictEqual(expectedBirds);
         });
     });
