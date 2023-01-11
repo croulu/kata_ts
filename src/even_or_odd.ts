@@ -1,3 +1,3 @@
 export function even_or_odd(n:number):string {
-    return ("PasEvenPasOdd");
+    return (n%2 == 0 ? "Even" : "Odd");
 }

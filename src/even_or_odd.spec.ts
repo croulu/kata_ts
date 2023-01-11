@@ -9,7 +9,7 @@ describe("even_or_odd", function(){
 
         const testNumber:number = value;
         const expectResult:string = allExpects[index];
-        it(`basicTests : should return '${expect}' for ${testNumber}`, function() {
+        it(`basicTests : should return '${expectResult}' for ${testNumber}`, function() {
             let sut = even_or_odd(testNumber);
             expect(sut).toBe(expectResult);
         });
