@@ -14,5 +14,29 @@ describe("solution", function() {
             const sut = validBraces(given);
             expect(sut).strictEqual(expected);
         });
+        it("should return true for (){}[]", ()=> {
+            const given = "(){}[]";
+            const expected = true;
+            const sut = validBraces(given);
+            expect(sut).strictEqual(expected);
+        });
+        it("should return true for ([{}])", ()=> {
+            const given = "([{}])";
+            const expected = true;
+            const sut = validBraces(given);
+            expect(sut).strictEqual(expected);
+        });
+        it("should return false for (}", ()=> {
+            const given = "(}";
+            const expected = false;
+            const sut = validBraces(given);
+            expect(sut).strictEqual(expected);
+        });
+        it("should return false for [({})](]", ()=> {
+            const given = "[({})](]";
+            const expected = false;
+            const sut = validBraces(given);
+            expect(sut).strictEqual(expected);
+        });
     });
 });
