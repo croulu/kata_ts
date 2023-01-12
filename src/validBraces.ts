@@ -18,3 +18,6 @@ export function countCloseBraces(braces:string, braceToCount:string):number {
     return numberOfBrace;
 }
 
+export function sameOccurenceBrace(braces:string, braceOpen:string, braceClose:string):boolean {
+    return countOpenBraces(braces, braceOpen) == countCloseBraces(braces, braceClose);
+}

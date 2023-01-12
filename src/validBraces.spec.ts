@@ -1,4 +1,9 @@
-import {countOpenBraces, countCloseBraces, validBraces } from './validBraces';
+import {
+    countOpenBraces,
+    countCloseBraces,
+    sameOccurenceBrace,
+    validBraces
+} from './validBraces';
 
 describe("should handle basic tests", function() {
 
@@ -31,6 +36,17 @@ describe("should handle basic tests", function() {
         const expected:number = 8;
         it (`given ${givenBraces} should return ${expected}`, ()=> {
             const sut = countCloseBraces(givenBraces, givenBrace);
+            expect(sut).toStrictEqual(expected);
+        });
+    });
+
+    describe("sameOccurenceBrace", function() {
+        const givenBraces:string = "(()))(";
+        const givenOpenBrace:string = "(";
+        const givenCloseBrace:string = ")";
+        const expected:boolean = true;
+        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
+            const sut = sameOccurenceBrace(givenBraces, givenOpenBrace, givenCloseBrace);
             expect(sut).toStrictEqual(expected);
         });
     });
