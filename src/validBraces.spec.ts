@@ -1,42 +1,18 @@
 import { validBraces } from './validBraces';
 
-describe("solution", function() {
-    describe("should handle basic tests", function() {
-        it("should return true for ()", ()=> {
-            const given = "()";
-            const expected = true;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
+describe("should handle basic tests", function() {
+
+    describe("validBraces", function() {
+        const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]"];
+        const expectedAll:Array<boolean> = [true, false, true, true, false, false];
+
+        givenAll.forEach((givenElement:string, index:number)=> {
+
+            it(`given ${givenElement} should return ${expectedAll[index]}`, ()=> {
+                const sut = validBraces(givenElement);
+                expect(sut).toStrictEqual(expectedAll[index]);
+            });
         })
-        it("should return false for [(])", ()=> {
-            const given = "[(])";
-            const expected = false;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
-        });
-        it("should return true for (){}[]", ()=> {
-            const given = "(){}[]";
-            const expected = true;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
-        });
-        it("should return true for ([{}])", ()=> {
-            const given = "([{}])";
-            const expected = true;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
-        });
-        it("should return false for (}", ()=> {
-            const given = "(}";
-            const expected = false;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
-        });
-        it("should return false for [({})](]", ()=> {
-            const given = "[({})](]";
-            const expected = false;
-            const sut = validBraces(given);
-            expect(sut).strictEqual(expected);
-        });
     });
+
 });
