@@ -61,6 +61,17 @@ describe("should handle basic tests", function() {
         });
     });
 
+    describe("orderCorrectBraces", function() {
+        const givenBraces:string = "()()()())";
+        const givenOpenBrace:string = "(";
+        const givenCloseBrace:string = ")";
+        const expected:boolean = false;
+        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
+            const sut = orderCorrectBraces(givenBraces, givenOpenBrace, givenCloseBrace);
+            expect(sut).toStrictEqual(expected);
+        });
+    });
+
     describe("validBraces", function() {
         const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]"];
         const expectedAll:Array<boolean> = [true, false, true, true, false, false];
