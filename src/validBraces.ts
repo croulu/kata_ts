@@ -2,7 +2,9 @@ const VALUE_OPEN_BRACE:number = 1;
 const VALUE_CLOSE_BRACE:number = -1;
 
 export function validBraces(braces: string): boolean {
-    return false;
+    let myStringBraces = new stringBraces(braces);
+
+    return isCorrectOrderForBraces(myStringBraces.text);
 }
 
 export function countParenthesisBraces(braces: string, whatToCount:string):number {
