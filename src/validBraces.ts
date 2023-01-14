@@ -1,37 +1,96 @@
+const VALUE_OPEN_BRACE:number = 1;
+const VALUE_CLOSE_BRACE:number = -1;
+
 export function validBraces(braces: string): boolean {
     return false;
 }
 
-export function countOpenBraces(braces:string, braceToCount:string):number {
-    let numberOfBrace = 0;
-    for (let brace of braces) {
-        if (brace == braceToCount) numberOfBrace++;
-    }
-    return numberOfBrace;
+export function countParenthesisBraces(braces: string, whatToCount:string):number {
+    let parenthesis = new Brace( "(", ")");
+    let myStringBraces = new stringBraces(braces);
+
+    return myStringBraces.countBraces(parenthesis, whatToCount);
 }
 
-export function countCloseBraces(braces:string, braceToCount:string):number {
-    let numberOfBrace = 0;
-    for (let brace of braces) {
-        if (brace == braceToCount) numberOfBrace++;
-    }
-    return numberOfBrace;
+export function countHookBraces(braces: string, whatToCount:string):number {
+    let hook = new Brace( "[", "]");
+    let myStringBraces = new stringBraces(braces);
+
+    return myStringBraces.countBraces(hook, whatToCount);
 }
 
-export function sameOccurenceBrace(braces:string, braceOpen:string, braceClose:string):boolean {
-    return countOpenBraces(braces, braceOpen) == countCloseBraces(braces, braceClose);
+export function countMustacheBraces(braces: string, whatToCount:string):number {
+    let mustache = new Brace( "{", "}");
+    let myStringBraces = new stringBraces(braces);
+
+    return myStringBraces.countBraces(mustache, whatToCount);
 }
 
-export function orderCorrectBraces(braces:string, braceOpen:string, braceClose:string):boolean {
-    const valueForOpenBrace:number = 1;
-    const valueForCloseBrace:number = -1;
+export function isSameOpenAndCloseBraces(braces:string):boolean {
+    let parenthesis = new Brace( "(", ")");
+    let myStringBraces = new stringBraces(braces);
+
+    const countOpen:number = myStringBraces.countOpen(parenthesis);
+    const countClose:number = myStringBraces.countClose(parenthesis);
+
+    return countOpen == countClose;
+}
+
+export function isCorrectOrderForBraces(braces:string):boolean {
+    let parenthesis = new Brace( "(", ")");
 
     let calculateBraces:number = 0;
 
     for(const brace of braces) {
-        brace == braceOpen ? calculateBraces+=valueForOpenBrace : calculateBraces+=valueForCloseBrace;
+        if (brace == parenthesis.openSign) {
+            calculateBraces+=VALUE_OPEN_BRACE;
+        }
+        else if (brace == parenthesis.closeSign) {
+            calculateBraces+=VALUE_CLOSE_BRACE;
+        }
         if (calculateBraces < 0) return false;
     }
 
     return calculateBraces >= 0;
+}
+
+class Brace {
+    openSign: string;
+    closeSign: string;
+
+    constructor(openSign: string, closeSign: string) {
+        this.openSign = openSign;
+        this.closeSign = closeSign;
+    }
+}
+
+class stringBraces {
+    text:string;
+
+    constructor(text:string) {
+        this.text = text;
+    }
+
+    countOpen(brace:Brace):number {
+        let numberOfBrace = 0;
+        for (let car of this.text) {
+            if (car == brace.openSign) numberOfBrace++;
+        }
+        return numberOfBrace;
+    }
+
+    countClose(brace:Brace):number {
+        let numberOfBrace = 0;
+        for (let car of this.text) {
+            if (car == brace.closeSign) numberOfBrace++;
+        }
+        return numberOfBrace;
+    }
+
+    countBraces(brace:Brace, whatToCount:string):number {
+        if (whatToCount == "open")
+            return this.countOpen(brace);
+        else if (whatToCount == "close")
+            return this.countClose(brace);
+    }
 }

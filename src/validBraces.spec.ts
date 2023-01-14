@@ -1,76 +1,77 @@
 import {
-    countOpenBraces,
-    countCloseBraces,
-    sameOccurenceBrace,
-    orderCorrectBraces,
+    countParenthesisBraces,
+    isSameOpenAndCloseBraces,
+    isCorrectOrderForBraces,
     validBraces
 } from './validBraces';
 
 describe("should handle basic tests", function() {
 
-    describe("countOpenBraces", function() {
+    describe("countParenthesisBraces", function() {
         const givenBraces:string = "(((((";
-        const givenBrace:string = "(";
+        const givenWhatToCount:string = "open";
         const expected:number = 5;
-        it (`given ${givenBraces} should return ${expected}`, ()=> {
-            const sut = countOpenBraces(givenBraces, givenBrace);
+        it (`should return ${expected} given ${givenBraces}`, ()=> {
+            const sut = countParenthesisBraces(givenBraces, givenWhatToCount);
             expect(sut).toStrictEqual(expected);
         });
     });
 
-    describe("countCloseBraces", function() {
+    describe("countParenthesisBraces", function() {
         const givenBraces:string = "))))))))";
-        const givenBrace:string = ")";
+        const givenWhatToCount:string = "close";
         const expected:number = 8;
-        it (`given ${givenBraces} should return ${expected}`, ()=> {
-            const sut = countCloseBraces(givenBraces, givenBrace);
+        it (`should return ${expected} given ${givenBraces}`, ()=> {
+            const sut = countParenthesisBraces(givenBraces, givenWhatToCount);
             expect(sut).toStrictEqual(expected);
         });
     });
 
-    describe("sameOccurenceBrace", function() {
+    describe("isSameOpenAndCloseBraces", function() {
         const givenBraces:string = "(()))(";
         const givenOpenBrace:string = "(";
         const givenCloseBrace:string = ")";
         const expected:boolean = true;
-        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
-            const sut = sameOccurenceBrace(givenBraces, givenOpenBrace, givenCloseBrace);
+        it (`should return ${expected} given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace}`, ()=> {
+            const sut = isSameOpenAndCloseBraces(givenBraces);
             expect(sut).toStrictEqual(expected);
         });
     });
 
-    describe("orderCorrectBraces", function() {
+    describe("isCorrectOrderForBraces", function() {
         const givenBraces:string = "(()(()))";
         const givenOpenBrace:string = "(";
         const givenCloseBrace:string = ")";
         const expected:boolean = true;
-        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
-            const sut = orderCorrectBraces(givenBraces, givenOpenBrace, givenCloseBrace);
+        it (`should return ${expected} given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace}`, ()=> {
+            const sut = isCorrectOrderForBraces(givenBraces);
             expect(sut).toStrictEqual(expected);
         });
     });
 
-    describe("orderCorrectBraces", function() {
+    describe("isCorrectOrderForBraces", function() {
         const givenBraces:string = ")(()(()))";
         const givenOpenBrace:string = "(";
         const givenCloseBrace:string = ")";
         const expected:boolean = false;
-        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
-            const sut = orderCorrectBraces(givenBraces, givenOpenBrace, givenCloseBrace);
+        it (`should return ${expected} given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace}`, ()=> {
+            const sut = isCorrectOrderForBraces(givenBraces);
             expect(sut).toStrictEqual(expected);
         });
     });
 
-    describe("orderCorrectBraces", function() {
+    describe("isCorrectOrderForBraces", function() {
         const givenBraces:string = "()()()())";
         const givenOpenBrace:string = "(";
         const givenCloseBrace:string = ")";
         const expected:boolean = false;
-        it (`given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace} should return ${expected}`, ()=> {
-            const sut = orderCorrectBraces(givenBraces, givenOpenBrace, givenCloseBrace);
+        it (`should return ${expected} given ${givenBraces} for ${givenOpenBrace} and ${givenCloseBrace}`, ()=> {
+            const sut = isCorrectOrderForBraces(givenBraces);
             expect(sut).toStrictEqual(expected);
         });
     });
+
+
 
     describe("validBraces", function() {
         const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]"];
@@ -78,7 +79,7 @@ describe("should handle basic tests", function() {
 
         givenAll.forEach((givenElement:string, index:number)=> {
 
-            it(`given ${givenElement} should return ${expectedAll[index]}`, ()=> {
+            it(`should return ${expectedAll[index]} given ${givenElement}`, ()=> {
                 const sut = validBraces(givenElement);
                 expect(sut).toStrictEqual(expectedAll[index]);
             });
