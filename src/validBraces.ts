@@ -6,6 +6,9 @@ export function validBraces(braces: string): boolean {
     let isCorrectForAllBraces = true;
 
     if (myStringBraces.isSameOpenAndCloseBraces()) {
+
+        console.log(myStringBraces.isValidForAllBracesParenthesis(), myStringBraces.isValidForAllBracesHook(), myStringBraces.isValidForAllBracesMustache());
+
         isCorrectForAllBraces = myStringBraces.isValidForAllBracesParenthesis()
             && myStringBraces.isValidForAllBracesHook()
             && myStringBraces.isValidForAllBracesMustache();
@@ -14,17 +17,6 @@ export function validBraces(braces: string): boolean {
     }
 
     return isCorrectForAllBraces;
-}
-
-function isSubstringValid(text:string, valueIndice2:number, indice1:number, indice2:number):boolean {
-    let isValid:boolean = true;
-    const interval = text.substr(indice1 + 1, valueIndice2 - indice1 - 1);
-
-    const subStringBraces = new stringBraces(interval);
-    if (subStringBraces.validBraces() == false)
-        isValid = false;
-
-    return isValid;
 }
 
 export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {
@@ -119,11 +111,12 @@ export class stringBraces {
     isValidForAllBracesParenthesis() {
         let isValid = true;
 
-        this.indexCloseParenthesis.forEach((elementClose, index) => {
+        this.indexCloseParenthesis.forEach((indice2Brace, index) => {
             const indice1Brace:number = this.indexOpenParenthesis[this.indexOpenParenthesis.length - 1 - index];
-            const indice2Brace:number = elementClose;
+            const lengthBrace:number = indice2Brace - indice1Brace;
 
-            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+            if (this.isSubstringValid(indice1Brace, lengthBrace) == false)
+                isValid = false;
         });
 
         return isValid;
@@ -132,11 +125,12 @@ export class stringBraces {
     isValidForAllBracesHook() {
         let isValid = true;
 
-        this.indexCloseHook.forEach((elementClose, index) => {
+        this.indexCloseHook.forEach((indice2Brace, index) => {
             const indice1Brace:number = this.indexOpenHook[this.indexOpenHook.length - 1 - index];
-            const indice2Brace:number = elementClose;
+            const lengthBrace:number = indice2Brace - indice1Brace;
 
-            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+            if (this.isSubstringValid(indice1Brace, lengthBrace) == false)
+                isValid = false;
         });
 
         return isValid;
@@ -145,12 +139,24 @@ export class stringBraces {
     isValidForAllBracesMustache() {
         let isValid = true;
 
-        this.indexCloseMustache.forEach((elementClose, index) => {
+        this.indexCloseMustache.forEach((indice2Brace, index) => {
             const indice1Brace:number = this.indexOpenMustache[this.indexOpenMustache.length - 1 - index];
-            const indice2Brace:number = elementClose;
+            const lengthBrace:number = indice2Brace - indice1Brace;
 
-            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+            if (this.isSubstringValid(indice1Brace, lengthBrace) == false)
+                isValid = false;
         });
+
+        return isValid;
+    }
+
+    isSubstringValid(indice1:number, lengthBrace:number):boolean {
+        let isValid:boolean = true;
+        const stringLimitsExcluded = this.text.substr(indice1 + 1, lengthBrace - 1);
+
+        const subStringBraces = new stringBraces(stringLimitsExcluded);
+        if (subStringBraces.validBraces() == false)
+            isValid = false;
 
         return isValid;
     }

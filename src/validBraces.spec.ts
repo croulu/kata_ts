@@ -85,8 +85,11 @@ describe("should handle basic tests", function() {
     });
 
     describe("validBraces", function() {
-        const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]", "([(((]))))", "([(({]})))"];
-        const expectedAll:Array<boolean> = [true, false, true, true, false, false, false, false];
+        const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]", "([(((]))))", "([(({]})))", "({})[({})]"];
+        const expectedAll:Array<boolean> = [true, false, true, true, false, false, false, false, true];
+
+//        const givenAll:Array<string> = ["({})[({})]"];
+//        const expectedAll:Array<boolean> = [true];
 
         givenAll.forEach((givenElement:string, index:number)=> {
 
