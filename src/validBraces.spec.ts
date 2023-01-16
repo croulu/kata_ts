@@ -1,42 +1,20 @@
 import {
-    countParenthesisBraces,
     isSameOpenAndCloseBraces,
     isCorrectOrderForBraces,
     validBraces,
     Brace,
     findAllOccurenceOfOneElement,
-    findAllOccurenceOfAllKindOfBrace,
     stringBraces
 } from './validBraces';
 
 describe("should handle basic tests", function() {
 
-    describe("countParenthesisBraces", function() {
-        const givenBraces:string = "(((((";
-        const givenWhatToCount:string = "open";
-        const expected:number = 5;
-        it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = countParenthesisBraces(givenBraces, givenWhatToCount);
-            expect(sut).toStrictEqual(expected);
-        });
-    });
-
-    describe("countParenthesisBraces", function() {
-        const givenBraces:string = "))))))))";
-        const givenWhatToCount:string = "close";
-        const expected:number = 8;
-        it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = countParenthesisBraces(givenBraces, givenWhatToCount);
-            expect(sut).toStrictEqual(expected);
-        });
-    });
-
     describe("isSameOpenAndCloseBraces", function() {
         const givenBraces:string = "(()))(";
         const expected:boolean = true;
         it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = isSameOpenAndCloseBraces(givenBraces);
-            expect(sut).toStrictEqual(expected);
+            const sut = new stringBraces(givenBraces);
+            expect(sut.isSameOpenAndCloseBraces()).toBe(expected);
         });
     });
 
@@ -44,8 +22,8 @@ describe("should handle basic tests", function() {
         const givenBraces:string = "(()(()))";
         const expected:boolean = true;
         it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = isCorrectOrderForBraces(givenBraces);
-            expect(sut).toStrictEqual(expected);
+            const sut = new stringBraces(givenBraces);
+            expect(sut.isCorrectOrderForBraces()).toBe(expected);
         });
     });
 
@@ -53,8 +31,8 @@ describe("should handle basic tests", function() {
         const givenBraces:string = ")(()(()))";
         const expected:boolean = false;
         it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = isCorrectOrderForBraces(givenBraces);
-            expect(sut).toStrictEqual(expected);
+            const sut = new stringBraces(givenBraces);
+            expect(sut.isCorrectOrderForBraces()).toBe(expected);
         });
     });
 
@@ -62,8 +40,8 @@ describe("should handle basic tests", function() {
         const givenBraces:string = "()()()())";
         const expected:boolean = false;
         it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = isCorrectOrderForBraces(givenBraces);
-            expect(sut).toStrictEqual(expected);
+            const sut = new stringBraces(givenBraces);
+            expect(sut.isCorrectOrderForBraces()).toBe(expected);
         });
     });
 
@@ -79,34 +57,32 @@ describe("should handle basic tests", function() {
 
     describe("findAllOccurenceOfAllKindOfBrace", function() {
         const givenBraces:string = "([(({]})))";
-        let myStringBraces = new stringBraces(givenBraces);
-        let expected:stringBraces = new stringBraces(givenBraces);
-        expected.indexOpenParenthesis = [0, 2, 3];
-        expected.indexCloseParenthesis = [7, 8, 9];
-        expected.countOpenParenthesis = 3;
-        expected.countCloseParenthesis = 3;
-        expected.indexOpenHook = [1];
-        expected.indexCloseHook = [5];
-        expected.countOpenHook = 1;
-        expected.countCloseHook = 1;
-        expected.indexOpenMustache = [4];
-        expected.indexCloseMustache = [6];
-        expected.countOpenMustache = 1;
-        expected.countOpenMustache = 1;
+        let indexOpenParenthesis:Array<number> = [0, 2, 3];
+        let indexCloseParenthesis:Array<number> = [7, 8, 9];
+        let countOpenParenthesis:number = 3;
+        let countCloseParenthesis:number = 3;
+        let indexOpenHook:Array<number> = [1];
+        let indexCloseHook:Array<number> = [5];
+        let countOpenHook:number = 1;
+        let countCloseHook:number = 1;
+        let indexOpenMustache:Array<number> = [4];
+        let indexCloseMustache:Array<number> = [6];
+        let countOpenMustache:number = 1;
+        let countCloseMustache:number = 1;
         it (`should return all braces index given ${givenBraces}`, ()=> {
-            const sut = myStringBraces;
-            expect(sut.indexOpenParenthesis).toStrictEqual(expected.indexOpenParenthesis);
-            expect(sut.indexCloseParenthesis).toStrictEqual(expected.indexCloseParenthesis);
-            expect(sut.indexOpenHook).toStrictEqual(expected.indexOpenHook);
-            expect(sut.indexCloseHook).toStrictEqual(expected.indexCloseHook);
-            expect(sut.indexOpenMustache).toStrictEqual(expected.indexOpenMustache);
-            expect(sut.indexCloseMustache).toStrictEqual(expected.indexCloseMustache);
-            expect(sut.countOpenParenthesis).toBe(expected.countOpenParenthesis);
-            expect(sut.countCloseParenthesis).toBe(expected.countCloseParenthesis);
-            expect(sut.countOpenHook).toBe(expected.countOpenHook);
-            expect(sut.countCloseHook).toBe(expected.countCloseHook);
-            expect(sut.countOpenMustache).toBe(expected.countOpenMustache);
-            expect(sut.countCloseMustache).toBe(expected.countOpenMustache);
+            const sut = new stringBraces(givenBraces);
+            expect(sut.indexOpenParenthesis).toStrictEqual(indexOpenParenthesis);
+            expect(sut.indexCloseParenthesis).toStrictEqual(indexCloseParenthesis);
+            expect(sut.indexOpenHook).toStrictEqual(indexOpenHook);
+            expect(sut.indexCloseHook).toStrictEqual(indexCloseHook);
+            expect(sut.indexOpenMustache).toStrictEqual(indexOpenMustache);
+            expect(sut.indexCloseMustache).toStrictEqual(indexCloseMustache);
+            expect(sut.countOpenParenthesis).toBe(countOpenParenthesis);
+            expect(sut.countCloseParenthesis).toBe(countCloseParenthesis);
+            expect(sut.countOpenHook).toBe(countOpenHook);
+            expect(sut.countCloseHook).toBe(countCloseHook);
+            expect(sut.countOpenMustache).toBe(countOpenMustache);
+            expect(sut.countCloseMustache).toBe(countCloseMustache);
         });
     });
 
