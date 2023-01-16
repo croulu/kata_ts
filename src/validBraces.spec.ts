@@ -3,7 +3,8 @@ import {
     isSameOpenAndCloseBraces,
     isCorrectOrderForBraces,
     validBraces,
-    Brace
+    Brace,
+    findFirstIndexForCloseBrace
 } from './validBraces';
 
 describe("should handle basic tests", function() {
@@ -64,7 +65,14 @@ describe("should handle basic tests", function() {
         });
     });
 
-
+    describe("findFirstIndexForCloseBrace", function() {
+        const givenBraces:string = "([(({]})))";
+        const expected:number = 7;
+       it (`should return ${expected} given ${givenBraces}`, ()=> {
+            const sut = findFirstIndexForCloseBrace(givenBraces);
+           expect(sut).toBe(expected);
+       });
+    });
 
     describe("validBraces", function() {
         const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]"];

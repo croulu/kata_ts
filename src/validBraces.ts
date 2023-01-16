@@ -56,6 +56,12 @@ export function isCorrectOrderForBraces(braces:string):boolean {
     return calculateBraces >= 0;
 }
 
+export function findFirstIndexForCloseBrace(braces:string):number {
+    let parenthesis = new Brace( "(", ")");
+
+    return braces.indexOf(parenthesis.closeSign);
+}
+
 export class Brace {
     openSign: string;
     closeSign: string;
@@ -66,7 +72,7 @@ export class Brace {
     }
 }
 
-export class stringBraces {
+class stringBraces {
     text:string;
 
     constructor(text:string) {
