@@ -5,17 +5,26 @@ export function validBraces(braces: string): boolean {
     let myStringBraces = new stringBraces(braces);
     let isCorrectForAllBraces = true;
 
-    myStringBraces.indexCloseParenthesis.forEach((element, index) => {
-        const indice1Brace:number = myStringBraces.indexOpenParenthesis[myStringBraces.indexOpenParenthesis.length - 1 - index];
-        const indice2Brace:number = element;
-        const interval = myStringBraces.text.substr(indice1Brace + 1, element - indice1Brace - 1);
-
-        const subStringBraces = new stringBraces(interval);
-        if (subStringBraces.validBraces() == false)
-            isCorrectForAllBraces = false;
-    });
+    if (myStringBraces.isSameOpenAndCloseBraces()) {
+        isCorrectForAllBraces = myStringBraces.isValidForAllBracesParenthesis()
+            && myStringBraces.isValidForAllBracesHook()
+            && myStringBraces.isValidForAllBracesMustache();
+    } else {
+        isCorrectForAllBraces = false;
+    }
 
     return isCorrectForAllBraces;
+}
+
+function isSubstringValid(text:string, valueIndice2:number, indice1:number, indice2:number):boolean {
+    let isValid:boolean = true;
+    const interval = text.substr(indice1 + 1, valueIndice2 - indice1 - 1);
+
+    const subStringBraces = new stringBraces(interval);
+    if (subStringBraces.validBraces() == false)
+        isValid = false;
+
+    return isValid;
 }
 
 export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {
@@ -47,6 +56,7 @@ export class stringBraces {
     countOpenParenthesis:number;
     countCloseParenthesis:number;
     isCorrectOrderParenthesis:boolean;
+    isValidBracesParenthesis:boolean;
 
     indexOpenHook:Array<number>;
     indexCloseHook:Array<number>;
@@ -69,6 +79,7 @@ export class stringBraces {
         this.countOpenParenthesis = this.indexOpenParenthesis.length;
         this.countCloseParenthesis = this.indexCloseParenthesis.length;
         this.isCorrectOrderParenthesis = this.isCorrectOrderForBrace(parenthesis.openSign, parenthesis.closeSign);
+        this.isValidBracesParenthesis = this.isValidForAllBracesParenthesis();
 
         let hook = new Brace( "[", "]");
         this.indexOpenHook = this.findAllOccurenceOfAllKindOfBrace(hook.openSign);
@@ -103,6 +114,45 @@ export class stringBraces {
         }
 
         return calculateBraces >= 0;
+    }
+
+    isValidForAllBracesParenthesis() {
+        let isValid = true;
+
+        this.indexCloseParenthesis.forEach((elementClose, index) => {
+            const indice1Brace:number = this.indexOpenParenthesis[this.indexOpenParenthesis.length - 1 - index];
+            const indice2Brace:number = elementClose;
+
+            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+        });
+
+        return isValid;
+    }
+
+    isValidForAllBracesHook() {
+        let isValid = true;
+
+        this.indexCloseHook.forEach((elementClose, index) => {
+            const indice1Brace:number = this.indexOpenHook[this.indexOpenHook.length - 1 - index];
+            const indice2Brace:number = elementClose;
+
+            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+        });
+
+        return isValid;
+    }
+
+    isValidForAllBracesMustache() {
+        let isValid = true;
+
+        this.indexCloseMustache.forEach((elementClose, index) => {
+            const indice1Brace:number = this.indexOpenMustache[this.indexOpenMustache.length - 1 - index];
+            const indice2Brace:number = elementClose;
+
+            isValid = isSubstringValid(this.text, elementClose, indice1Brace, indice2Brace);
+        });
+
+        return isValid;
     }
 
     isSameOpenAndCloseBraces():boolean {
