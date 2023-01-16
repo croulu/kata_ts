@@ -3,8 +3,19 @@ const VALUE_CLOSE_BRACE:number = -1;
 
 export function validBraces(braces: string): boolean {
     let myStringBraces = new stringBraces(braces);
+    let isCorrectForAllBraces = true;
 
-    return myStringBraces.validBraces();
+    myStringBraces.indexCloseParenthesis.forEach((element, index) => {
+        const indice1Brace:number = myStringBraces.indexOpenParenthesis[myStringBraces.indexOpenParenthesis.length - 1 - index];
+        const indice2Brace:number = element;
+        const interval = myStringBraces.text.substr(indice1Brace + 1, element - indice1Brace - 1);
+
+        const subStringBraces = new stringBraces(interval);
+        if (subStringBraces.validBraces() == false)
+            isCorrectForAllBraces = false;
+    });
+
+    return isCorrectForAllBraces;
 }
 
 export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {

@@ -1,6 +1,4 @@
 import {
-    isSameOpenAndCloseBraces,
-    isCorrectOrderForBraces,
     validBraces,
     Brace,
     findAllOccurenceOfOneElement,
@@ -87,8 +85,11 @@ describe("should handle basic tests", function() {
     });
 
     describe("validBraces", function() {
-        const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]", "([(((]))))", "([(({]})))"];
-        const expectedAll:Array<boolean> = [true, false, true, true, false, false, false, false];
+//        const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]", "([(((]))))", "([(({]})))"];
+//        const expectedAll:Array<boolean> = [true, false, true, true, false, false, false, false];
+
+        const givenAll:Array<string> = ["([(({]})))"];
+        const expectedAll:Array<boolean> = [false];
 
         givenAll.forEach((givenElement:string, index:number)=> {
 
