@@ -56,7 +56,7 @@ export function isCorrectOrderForBraces(braces:string):boolean {
     return calculateBraces >= 0;
 }
 
-class Brace {
+export class Brace {
     openSign: string;
     closeSign: string;
 
@@ -66,7 +66,7 @@ class Brace {
     }
 }
 
-class stringBraces {
+export class stringBraces {
     text:string;
 
     constructor(text:string) {
