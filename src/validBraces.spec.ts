@@ -82,9 +82,19 @@ describe("should handle basic tests", function() {
         let myStringBraces = new stringBraces(givenBraces);
         let expected:stringBraces = new stringBraces(givenBraces);
         expected.countParenthesisOpen = [0, 2, 3];
-        it (`should return ${expected.countParenthesisOpen} given ${givenBraces}`, ()=> {
-            const sut = myStringBraces.countParenthesisOpen;
-            expect(sut).toStrictEqual(expected.countParenthesisOpen);
+        expected.countParenthesisClose = [7, 8, 9];
+        expected.countHookOpen = [1];
+        expected.countHookClose = [5];
+        expected.countMustacheOpen = [4];
+        expected.countMustacheClose = [6];
+        it (`should return all braces index given ${givenBraces}`, ()=> {
+            const sut = myStringBraces;
+            expect(sut.countParenthesisOpen).toStrictEqual(expected.countParenthesisOpen);
+            expect(sut.countParenthesisClose).toStrictEqual(expected.countParenthesisClose);
+            expect(sut.countHookOpen).toStrictEqual(expected.countHookOpen);
+            expect(sut.countHookClose).toStrictEqual(expected.countHookClose);
+            expect(sut.countMustacheOpen).toStrictEqual(expected.countMustacheOpen);
+            expect(sut.countMustacheClose).toStrictEqual(expected.countMustacheClose);
         });
     });
 

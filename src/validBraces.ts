@@ -80,11 +80,23 @@ export class Brace {
 export class stringBraces {
     text:string;
     countParenthesisOpen:Array<number>;
+    countParenthesisClose:Array<number>;
+    countHookOpen:Array<number>;
+    countHookClose:Array<number>;
+    countMustacheOpen:Array<number>;
+    countMustacheClose:Array<number>;
 
     constructor(text:string) {
         this.text = text;
         let parenthesis = new Brace( "(", ")");
         this.countParenthesisOpen = this.findAllOccurenceOfAllKindOfBrace(parenthesis.openSign);
+        this.countParenthesisClose = this.findAllOccurenceOfAllKindOfBrace(parenthesis.closeSign);
+        let hook = new Brace( "[", "]");
+        this.countHookOpen = this.findAllOccurenceOfAllKindOfBrace(hook.openSign);
+        this.countHookClose = this.findAllOccurenceOfAllKindOfBrace(hook.closeSign);
+        let mustache = new Brace( "{", "}");
+        this.countMustacheOpen = this.findAllOccurenceOfAllKindOfBrace(mustache.openSign);
+        this.countMustacheClose = this.findAllOccurenceOfAllKindOfBrace(mustache.closeSign);
     }
 
     countOpen(brace:Brace):number {
