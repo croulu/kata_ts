@@ -4,7 +4,9 @@ import {
     isCorrectOrderForBraces,
     validBraces,
     Brace,
-    findAllOccurenceOfOneElement
+    findAllOccurenceOfOneElement,
+    findAllOccurenceOfAllKindOfBrace,
+    stringBraces
 } from './validBraces';
 
 describe("should handle basic tests", function() {
@@ -74,6 +76,19 @@ describe("should handle basic tests", function() {
             expect(sut).toStrictEqual(expected);
         });
     });
+
+    describe("findAllOccurenceOfAllKindOfBrace", function() {
+        const givenBraces:string = "([(({]})))";
+        let myStringBraces = new stringBraces(givenBraces);
+        let expected:stringBraces = new stringBraces(givenBraces);
+        expected.countParenthesisOpen = [0, 2, 3];
+        it (`should return ${expected.countParenthesisOpen} given ${givenBraces}`, ()=> {
+            const sut = myStringBraces.countParenthesisOpen;
+            expect(sut).toStrictEqual(expected.countParenthesisOpen);
+        });
+    });
+
+
 
     describe("validBraces", function() {
         const givenAll:Array<string> = ["()", "[(])", "(){}[]", "([{}])", "(}", "[({})](]"];

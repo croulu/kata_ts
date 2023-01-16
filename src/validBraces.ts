@@ -77,11 +77,14 @@ export class Brace {
     }
 }
 
-class stringBraces {
+export class stringBraces {
     text:string;
+    countParenthesisOpen:Array<number>;
 
     constructor(text:string) {
         this.text = text;
+        let parenthesis = new Brace( "(", ")");
+        this.countParenthesisOpen = this.findAllOccurenceOfAllKindOfBrace(parenthesis.openSign);
     }
 
     countOpen(brace:Brace):number {
@@ -105,5 +108,9 @@ class stringBraces {
             return this.countOpen(brace);
         else if (whatToCount == "close")
             return this.countClose(brace);
+    }
+
+    findAllOccurenceOfAllKindOfBrace(element:string):Array<number> {
+        return findAllOccurenceOfOneElement(this.text, element);
     }
 }
