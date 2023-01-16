@@ -4,7 +4,7 @@ const VALUE_CLOSE_BRACE:number = -1;
 export function validBraces(braces: string): boolean {
     let myStringBraces = new stringBraces(braces);
 
-    return myStringBraces.isSameOpenAndCloseBraces() && myStringBraces.isCorrectOrderForBraces();
+    return myStringBraces.validBraces();
 }
 
 export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {
@@ -102,6 +102,10 @@ export class stringBraces {
 
     isCorrectOrderForBraces():boolean {
         return this.isCorrectOrderParenthesis && this.isCorrectOrderHook && this.isCorrectOrderMustache;
+    }
+
+    validBraces(): boolean {
+        return this.isSameOpenAndCloseBraces() && this.isCorrectOrderForBraces();
     }
 
 }
