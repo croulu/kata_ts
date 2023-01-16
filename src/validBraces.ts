@@ -79,24 +79,36 @@ export class Brace {
 
 export class stringBraces {
     text:string;
-    countParenthesisOpen:Array<number>;
-    countParenthesisClose:Array<number>;
-    countHookOpen:Array<number>;
-    countHookClose:Array<number>;
-    countMustacheOpen:Array<number>;
-    countMustacheClose:Array<number>;
+    indexOpenParenthesis:Array<number>;
+    indexCloseParenthesis:Array<number>;
+    countOpenParenthesis:number;
+    countCloseParenthesis:number;
+    indexOpenHook:Array<number>;
+    indexCloseHook:Array<number>;
+    countOpenHook:number;
+    countCloseHook:number;
+    indexOpenMustache:Array<number>;
+    indexCloseMustache:Array<number>;
+    countOpenMustache:number;
+    countCloseMustache:number;
 
     constructor(text:string) {
         this.text = text;
         let parenthesis = new Brace( "(", ")");
-        this.countParenthesisOpen = this.findAllOccurenceOfAllKindOfBrace(parenthesis.openSign);
-        this.countParenthesisClose = this.findAllOccurenceOfAllKindOfBrace(parenthesis.closeSign);
+        this.indexOpenParenthesis = this.findAllOccurenceOfAllKindOfBrace(parenthesis.openSign);
+        this.indexCloseParenthesis = this.findAllOccurenceOfAllKindOfBrace(parenthesis.closeSign);
+        this.countOpenParenthesis = this.indexOpenParenthesis.length;
+        this.countCloseParenthesis = this.indexCloseParenthesis.length;
         let hook = new Brace( "[", "]");
-        this.countHookOpen = this.findAllOccurenceOfAllKindOfBrace(hook.openSign);
-        this.countHookClose = this.findAllOccurenceOfAllKindOfBrace(hook.closeSign);
+        this.indexOpenHook = this.findAllOccurenceOfAllKindOfBrace(hook.openSign);
+        this.indexCloseHook = this.findAllOccurenceOfAllKindOfBrace(hook.closeSign);
+        this.countOpenHook = this.indexOpenHook.length;
+        this.countCloseHook = this.indexCloseHook.length;
         let mustache = new Brace( "{", "}");
-        this.countMustacheOpen = this.findAllOccurenceOfAllKindOfBrace(mustache.openSign);
-        this.countMustacheClose = this.findAllOccurenceOfAllKindOfBrace(mustache.closeSign);
+        this.indexOpenMustache = this.findAllOccurenceOfAllKindOfBrace(mustache.openSign);
+        this.indexCloseMustache = this.findAllOccurenceOfAllKindOfBrace(mustache.closeSign);
+        this.countOpenMustache = this.indexOpenMustache.length;
+        this.countCloseMustache = this.indexCloseMustache.length;
     }
 
     countOpen(brace:Brace):number {
