@@ -4,7 +4,7 @@ const VALUE_CLOSE_BRACE:number = -1;
 export function validBraces(braces: string): boolean {
     let myStringBraces = new stringBraces(braces);
 
-    return false;
+    return myStringBraces.isSameOpenAndCloseBraces() && myStringBraces.isCorrectOrderForBraces();
 }
 
 export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {
@@ -74,12 +74,6 @@ export class stringBraces {
         this.isCorrectOrderMustache = this.isCorrectOrderForBrace(mustache.openSign, mustache.closeSign);
     }
 
-    isSameOpenAndCloseBraces():boolean {
-        return this.countOpenParenthesis == this.countCloseParenthesis &&
-            this.countOpenHook == this.countCloseHook &&
-            this.countOpenMustache == this.countCloseMustache;
-    }
-
     findAllOccurenceOfAllKindOfBrace(element:string):Array<number> {
         return findAllOccurenceOfOneElement(this.text, element);
     }
@@ -98,6 +92,12 @@ export class stringBraces {
         }
 
         return calculateBraces >= 0;
+    }
+
+    isSameOpenAndCloseBraces():boolean {
+        return this.countOpenParenthesis == this.countCloseParenthesis &&
+            this.countOpenHook == this.countCloseHook &&
+            this.countOpenMustache == this.countCloseMustache;
     }
 
     isCorrectOrderForBraces():boolean {
