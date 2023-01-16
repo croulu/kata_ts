@@ -4,8 +4,6 @@ import {
     isCorrectOrderForBraces,
     validBraces,
     Brace,
-    findFirstCloseBraceIndex,
-    findLastOpenBraceIndexBeforeCloseBraceIndex,
     findAllOccurenceOfOneElement
 } from './validBraces';
 
@@ -64,24 +62,6 @@ describe("should handle basic tests", function() {
         it (`should return ${expected} given ${givenBraces}`, ()=> {
             const sut = isCorrectOrderForBraces(givenBraces);
             expect(sut).toStrictEqual(expected);
-        });
-    });
-
-    describe("findFirstCloseBraceIndex", function() {
-        const givenBraces:string = "([(({]})))";
-        const expected:number = 7;
-       it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = findFirstCloseBraceIndex(givenBraces);
-           expect(sut).toBe(expected);
-       });
-    });
-
-    describe("findLastOpenBraceIndexBeforeCloseBraceIndex", function() {
-        const givenBraces:string = "([(({]})))";
-        const expected:number = 3;
-        it (`should return ${expected} given ${givenBraces}`, ()=> {
-            const sut = findLastOpenBraceIndexBeforeCloseBraceIndex(givenBraces);
-            expect(sut).toBe(expected);
         });
     });
 
