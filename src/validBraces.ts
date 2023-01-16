@@ -56,10 +56,25 @@ export function isCorrectOrderForBraces(braces:string):boolean {
     return calculateBraces >= 0;
 }
 
-export function findFirstIndexForCloseBrace(braces:string):number {
+export function findFirstCloseBraceIndex(braces:string):number {
     let parenthesis = new Brace( "(", ")");
 
     return braces.indexOf(parenthesis.closeSign);
+}
+
+export function findLastOpenBraceIndexBeforeCloseBraceIndex(braces:string):number {
+    return 0;
+}
+
+export function findAllOccurenceOfOneElement(braces: string, element: string):Array<number> {
+    const indices = [];
+    let indice:number = braces.indexOf(element);
+    while (indice !== -1) {
+        indices.push(indice);
+        indice = braces.indexOf(element, indice + 1);
+    }
+
+    return indices;
 }
 
 export class Brace {
