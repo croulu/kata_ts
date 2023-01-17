@@ -34,7 +34,7 @@ export class stringBraces {
         this.closeSigns.push(mustache.closeSign);
     }
 
-    isTheSameBrace(brace:string, theLastBracePushed:string) {
+    isTheSameFamilyBrace(brace:string, theLastBracePushed:string) {
         return (this.closeSigns.indexOf(brace) === this.openSigns.indexOf(theLastBracePushed));
     }
 
@@ -46,7 +46,7 @@ export class stringBraces {
                 checkBraces.push(brace);
             } else {
                 const theLastBracePushed = checkBraces[checkBraces.length - 1];
-                if (this.isTheSameBrace(brace, theLastBracePushed)) {
+                if (this.isTheSameFamilyBrace(brace, theLastBracePushed)) {
                     checkBraces.pop();
                 } else
                     return false
